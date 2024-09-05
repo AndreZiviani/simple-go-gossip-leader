@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test
+  namespace: default
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: test
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: test
+    spec:
+      terminationGracePeriodSeconds: 1
+      containers:
+      - args:
+        - infinity
+        command:
+        - sleep
+        image: docker.io/alpine:latest
+        imagePullPolicy: IfNotPresent
+        name: test
+        ports:
+        - containerPort: 4100
+          name: gossip
+          protocol: TCP
